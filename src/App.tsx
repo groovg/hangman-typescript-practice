@@ -5,10 +5,12 @@ import { HangmanWord } from "./HangmanWord";
 import { Keyboard } from "./Keyboard";
 
 function App() {
-  const [wordToGues, setWordToGuess] = useState(() => {
+  const [wordToGuess, setWordToGuess] = useState(() => {
     return words[Math.floor(Math.random() * words.length)];
   });
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+
+  const incorrectLetters = guessedLetters.filter((letter) => !wordToGuess);
 
   return (
     <div
@@ -21,7 +23,7 @@ function App() {
         alignItems: "center",
       }}>
       <div style={{ fontSize: "2rem", textAlign: "center" }}>Lose Win</div>
-      <HangmanDrawing />
+      <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord />
       <div style={{ alignSelf: "stretch" }}>
         <Keyboard />
